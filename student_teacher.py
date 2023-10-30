@@ -52,3 +52,18 @@ for i in range(100):
     teacher_loss.backward()
     student_loss.backward()
     optimizer.step()
+
+
+    def my_loss_fn(output, target):
+    loss = nn.MSELoss()(output, target)
+    return loss
+num_epochs = 10
+optimizer = optim.SGD(student_model.parameters(), lr=0.1)
+
+# Use the loss function in the training loop
+for i in range(num_epochs):
+    optimizer.zero_grad()
+    output = model(input)
+    loss = my_loss_fn(output, target)
+    loss.backward()
+    optimizer.step()
